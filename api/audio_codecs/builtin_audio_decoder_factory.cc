@@ -25,6 +25,9 @@
 #include "api/audio_codecs/opus/audio_decoder_multi_channel_opus.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"  // nogncheck
 #endif
+#if WEBRTC_USE_BUILTIN_LYRA
+#include "api/audio_codecs/lyra/audio_decoder_lyra.h"
+#endif
 
 namespace webrtc {
 
@@ -51,6 +54,7 @@ struct NotAdvertised {
 }  // namespace
 
 rtc::scoped_refptr<AudioDecoderFactory> CreateBuiltinAudioDecoderFactory() {
+/*
   return CreateAudioDecoderFactory<
 
 #if WEBRTC_USE_BUILTIN_OPUS
@@ -63,7 +67,15 @@ rtc::scoped_refptr<AudioDecoderFactory> CreateBuiltinAudioDecoderFactory() {
       AudioDecoderIlbc,
 #endif
 
-      AudioDecoderG711, NotAdvertised<AudioDecoderL16>>();
+      AudioDecoderG711, NotAdvertised<AudioDecoderL16>
+
+#if WEBRTC_USE_BUILTIN_LYRA
+      ,
+      AudioDecoderLyra
+#endif
+>();
+*/
+  return CreateAudioDecoderFactory<AudioDecoderLyra>();
 }
 
 }  // namespace webrtc

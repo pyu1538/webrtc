@@ -25,6 +25,9 @@
 #include "api/audio_codecs/opus/audio_encoder_multi_channel_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"  // nogncheck
 #endif
+#if WEBRTC_USE_BUILTIN_LYRA
+#include "api/audio_codecs/lyra/audio_encoder_lyra.h"
+#endif
 
 namespace webrtc {
 
@@ -55,6 +58,7 @@ struct NotAdvertised {
 }  // namespace
 
 rtc::scoped_refptr<AudioEncoderFactory> CreateBuiltinAudioEncoderFactory() {
+/*
   return CreateAudioEncoderFactory<
 
 #if WEBRTC_USE_BUILTIN_OPUS
@@ -67,7 +71,16 @@ rtc::scoped_refptr<AudioEncoderFactory> CreateBuiltinAudioEncoderFactory() {
       AudioEncoderIlbc,
 #endif
 
-      AudioEncoderG711, NotAdvertised<AudioEncoderL16>>();
+      AudioEncoderG711, NotAdvertised<AudioEncoderL16>
+
+#if WEBRTC_USE_BUILTIN_LYRA
+      ,
+      AudioEncoderLyra
+#endif
+
+>();
+*/
+  return CreateAudioEncoderFactory<AudioEncoderLyra>();
 }
 
 }  // namespace webrtc

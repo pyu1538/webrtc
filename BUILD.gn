@@ -116,7 +116,7 @@ config("library_impl_config") {
 config("common_inherited_config") {
   defines = []
   cflags = []
-  ldflags = []
+  ldflags = ["-F/Users/peng.yu/lyra_ios_framework"]
 
   if (rtc_enable_symbol_export || is_component_build) {
     defines = [ "WEBRTC_ENABLE_SYMBOL_EXPORT" ]

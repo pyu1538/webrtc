@@ -61,6 +61,12 @@ import org.webrtc.VideoFileRenderer;
 import org.webrtc.VideoFrame;
 import org.webrtc.VideoSink;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import android.content.res.AssetManager;
+
 /**
  * Activity for peer connection call setup, call waiting
  * and call view.
@@ -185,6 +191,38 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
   private HudFragment hudFragment;
   private CpuMonitor cpuMonitor;
 
+  // Lyra weight path
+  private String weightsDirectory;
+
+  private void copyWeightsAssetsToDirectory(String targetDirectory) {
+    try {
+      AssetManager assetManager = getAssets();
+      String[] files = assetManager.list("");
+      byte[] buffer = new byte[1024];
+      int amountRead;
+      for (String file : files) {
+        // Lyra weights start with a 'lyra_' prefix.
+        if (!file.startsWith("lyra_")) {
+          continue;
+        }
+        InputStream inputStream = assetManager.open(file);
+        File outputFile = new File(targetDirectory, file);
+
+        OutputStream outputStream = new FileOutputStream(outputFile);
+        Log.i(TAG, "copying asset to " + outputFile.getPath());
+
+        while ((amountRead = inputStream.read(buffer)) != -1) {
+          outputStream.write(buffer, 0, amountRead);
+        }
+        inputStream.close();
+        outputStream.close();
+      }
+    } catch (Exception e) {
+      Log.e(TAG, "Error copying assets", e);
+    }
+  }
+
+
   @Override
   // TODO(bugs.webrtc.org/8580): LayoutParams.FLAG_TURN_SCREEN_ON and
   // LayoutParams.FLAG_SHOW_WHEN_LOCKED are deprecated.
@@ -192,6 +230,11 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Thread.setDefaultUncaughtExceptionHandler(new UnhandledExceptionHandler(this));
+
+    weightsDirectory = getExternalFilesDir(null).getAbsolutePath();
+    //weightsDirectory = getApplicationInfo().dataDir;
+    Log.i(TAG, "Lyra weight path: " + weightsDirectory);
+    copyWeightsAssetsToDirectory(weightsDirectory);
 
     // Set window styles for fullscreen-window size. Needs to be done before
     // adding content.
@@ -796,6 +839,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
           return;
         }
         logAndToast("Received remote " + desc.type + ", delay=" + delta + "ms");
+	Log.i(TAG, "Received remote " + desc.type + ", yupeng: " + desc.description);
         peerConnectionClient.setRemoteDescription(desc);
         if (!signalingParameters.initiator) {
           logAndToast("Creating ANSWER...");

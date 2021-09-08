@@ -1,0 +1,68 @@
+# Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")
+if (is_android) {
+  import("//build/config/android/config.gni")
+  import("//build/config/android/rules.gni")
+}
+
+rtc_library("audio_encoder_lyra") {
+  visibility = [ "*" ]
+  poisonous = [ "audio_codecs" ]
+  public = [ "audio_encoder_lyra.h" ]
+  sources = [ "audio_encoder_lyra.cc" ]
+  deps = [
+    "..:audio_codecs_api",
+    "../../../modules/audio_coding:webrtc_lyra",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/system:rtc_export",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+  include_dirs = [
+    "/Users/peng.yu/lyra_ios_framework/external/gulrak_filesystem",
+    "/Users/peng.yu/lyra_ios_framework/external/eigen_archive",
+    "/Users/peng.yu/lyra_ios_framework/external/com_google_audio_dsp",
+    #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_google_glog/_virtual_includes/glog",
+    #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+    "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_google_glog/_virtual_includes/glog",
+    "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+    "//third_party/lyra",
+  ]
+}
+
+rtc_library("audio_decoder_lyra") {
+  visibility = [ "*" ]
+  poisonous = [ "audio_codecs" ]
+  sources = [
+    "audio_decoder_lyra.cc",
+    "audio_decoder_lyra.h",
+  ]
+  deps = [
+    "..:audio_codecs_api",
+    "../../../modules/audio_coding:webrtc_lyra",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/system:rtc_export",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+  include_dirs = [
+    "/Users/peng.yu/lyra_ios_framework/external/gulrak_filesystem",
+    #"/Users/peng.yu/lyra_ios_framework/external/com_google_audio_dsp/third_party/eigen3",
+    "/Users/peng.yu/lyra_ios_framework/external/eigen_archive",
+    "/Users/peng.yu/lyra_ios_framework/external/com_google_audio_dsp",
+    "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_google_glog/_virtual_includes/glog",
+    "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+    "//third_party/lyra",
+  ]
+}

@@ -76,6 +76,26 @@ rtc_library("builtin_audio_decoder_factory") {
   } else {
     defines += [ "WEBRTC_USE_BUILTIN_OPUS=0" ]
   }
+  if (rtc_build_lyra || rtc_prebuild_lyra) {
+    deps += [
+      "lyra:audio_decoder_lyra",
+    ]
+
+    defines += [ "WEBRTC_USE_BUILTIN_LYRA=1" ]
+
+    include_dirs = [
+      "/Users/peng.yu/lyra_ios_framework/external/gulrak_filesystem",
+      "/Users/peng.yu/lyra_ios_framework/external/eigen_archive",
+      "/Users/peng.yu/lyra_ios_framework/external/com_google_audio_dsp",
+      #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_google_glog/_virtual_includes/glog",
+      #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+      "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_google_glog/_virtual_includes/glog",
+      "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+      "//third_party/lyra",
+    ]
+  } else {
+    defines += [ "WEBRTC_USE_BUILTIN_LYRA=0" ]
+  }
 }
 
 rtc_library("builtin_audio_encoder_factory") {
@@ -109,6 +129,24 @@ rtc_library("builtin_audio_encoder_factory") {
     defines += [ "WEBRTC_USE_BUILTIN_OPUS=1" ]
   } else {
     defines += [ "WEBRTC_USE_BUILTIN_OPUS=0" ]
+  }
+  if (rtc_build_lyra || rtc_prebuild_lyra) {
+    deps += [
+      "lyra:audio_encoder_lyra",
+    ]
+
+    defines += [ "WEBRTC_USE_BUILTIN_LYRA=1" ]
+
+    include_dirs = [
+      "/Users/peng.yu/lyra_ios_framework/external/gulrak_filesystem",
+      "/Users/peng.yu/lyra_ios_framework/external/eigen_archive",
+      "/Users/peng.yu/lyra_ios_framework/external/com_google_audio_dsp",
+      #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_google_glog/_virtual_includes/glog",
+      #"/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/android-arm64-v8a-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+      "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_google_glog/_virtual_includes/glog",
+      "/Users/peng.yu/lyra_ios_framework/execroot/__main__/bazel-out/ios-arm64-min11.0-applebin_ios-ios_arm64-dbg-ST-54d73585ce0d/bin/external/com_github_gflags_gflags/_virtual_includes/gflags",
+      "//third_party/lyra",
+    ]
   }
 }
 

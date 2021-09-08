@@ -28,7 +28,7 @@ const int kRTCAudioSessionPreferredNumberOfChannels = 1;
 // will be set to this value as well to avoid resampling the the audio unit's
 // format converter. Note that, some devices, e.g. BT headsets, only supports
 // 8000Hz as native sample rate.
-const double kRTCAudioSessionHighPerformanceSampleRate = 48000.0;
+const double kRTCAudioSessionHighPerformanceSampleRate = 16000.0;
 
 // A lower sample rate will be used for devices with only one core
 // (e.g. iPhone 4). The goal is to reduce the CPU load of the application.
@@ -42,14 +42,14 @@ const double kRTCAudioSessionLowComplexitySampleRate = 16000.0;
 // buffers used by WebRTC. It is beneficial for the performance if the native
 // size is as an even multiple of 10ms as possible since it results in "clean"
 // callback sequence without bursts of callbacks back to back.
-const double kRTCAudioSessionHighPerformanceIOBufferDuration = 0.02;
+const double kRTCAudioSessionHighPerformanceIOBufferDuration = 0.04;
 
 // Use a larger buffer size on devices with only one core (e.g. iPhone 4).
 // It will result in a lower CPU consumption at the cost of a larger latency.
 // The size of 60ms is based on instrumentation that shows a significant
 // reduction in CPU load compared with 10ms on low-end devices.
 // TODO(henrika): monitor this size and determine if it should be modified.
-const double kRTCAudioSessionLowComplexityIOBufferDuration = 0.06;
+const double kRTCAudioSessionLowComplexityIOBufferDuration = 0.04;
 
 static RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *gWebRTCConfiguration = nil;
 

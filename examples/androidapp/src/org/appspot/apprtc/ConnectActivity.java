@@ -47,6 +47,11 @@ import org.json.JSONException;
  * Handles the initial setup where the user selects which room to join.
  */
 public class ConnectActivity extends Activity {
+  static {
+    System.loadLibrary("sparse_inference");
+    System.loadLibrary("lyra_android_example");
+  }
+
   private static final String TAG = "ConnectActivity";
   private static final int CONNECTION_REQUEST = 1;
   private static final int PERMISSION_REQUEST = 2;

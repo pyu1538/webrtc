@@ -247,6 +247,7 @@ public class PeerConnectionClient {
       this.videoFlexfecEnabled = videoFlexfecEnabled;
       this.videoCodecHwAcceleration = videoCodecHwAcceleration;
       this.audioStartBitrate = audioStartBitrate;
+      Log.w(TAG, "yupeng prefered audio codec: " + audioCodec);
       this.audioCodec = audioCodec;
       this.noAudioProcessing = noAudioProcessing;
       this.aecDump = aecDump;
@@ -860,6 +861,7 @@ public class PeerConnectionClient {
         return;
       }
       String sdp = desc.description;
+      sdp = preferCodec(sdp, "lyra", true);
       if (preferIsac) {
         sdp = preferCodec(sdp, AUDIO_CODEC_ISAC, true);
       }
@@ -870,7 +872,7 @@ public class PeerConnectionClient {
         sdp = setStartBitrate(
             AUDIO_CODEC_OPUS, false, sdp, peerConnectionParameters.audioStartBitrate);
       }
-      Log.d(TAG, "Set remote SDP.");
+      Log.i(TAG, "Set remote SDP. yupeng: "+desc.description);
       SessionDescription sdpRemote = new SessionDescription(desc.type, sdp);
       peerConnection.setRemoteDescription(sdpObserver, sdpRemote);
     });

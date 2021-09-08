@@ -131,6 +131,9 @@ if (is_android) {
     configs += [ "//build/config/android:hide_all_but_jni" ]
     ldflags = [
       "-lEGL",
+      "-llyra_android_example",
+      "-lsparse_inference",
+      "-L/home/yupeng/projects/lyra/bazel-bin/android_example/yupeng/lib/arm64-v8a",
       "-Wl,--build-id",
     ]
 

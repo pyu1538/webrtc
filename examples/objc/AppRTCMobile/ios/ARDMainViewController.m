@@ -60,6 +60,7 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
       [RTC_OBJC_TYPE(RTCAudioSessionConfiguration) webRTCConfiguration];
   webRTCConfig.categoryOptions = webRTCConfig.categoryOptions |
       AVAudioSessionCategoryOptionDefaultToSpeaker;
+  webRTCConfig.sampleRate = 16000;
   [RTC_OBJC_TYPE(RTCAudioSessionConfiguration) setWebRTCConfiguration:webRTCConfig];
 
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
@@ -67,6 +68,7 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
 
   [self configureAudioSession];
   [self setupAudioPlayer];
+  RTCLog(@"yupeng path: %@", NSHomeDirectory());
 }
 
 - (void)addSettingsBarButton {

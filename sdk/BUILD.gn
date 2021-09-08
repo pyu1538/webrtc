@@ -152,6 +152,7 @@ if (is_ios || is_mac) {
     frameworks = [
       "AVFoundation.framework",
       "CoreMedia.framework",
+      "lyra_ios_dynamic.framework",
     ]
 
     configs += [
@@ -1355,6 +1356,11 @@ if (is_ios || is_mac) {
       bundle_data("ios_framework_bundle") {
         deps = [ "../sdk:framework_objc" ]
         sources = [ "$root_build_dir/WebRTC.framework" ]
+        outputs = [ "{{bundle_resources_dir}}/Frameworks/{{source_file_part}}" ]
+      }
+
+      bundle_data("lyra_ios_framework_bundle") {
+        sources = [ "/Users/peng.yu/lyra_ios_framework/lyra_ios_dynamic.framework" ]
         outputs = [ "{{bundle_resources_dir}}/Frameworks/{{source_file_part}}" ]
       }
     }

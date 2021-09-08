@@ -94,10 +94,13 @@ if (is_android) {
     deps = [
       ":AppRTCMobile_javalib",
       ":AppRTCMobile_resources",
+      ":lyra_weight_assets",
       "../rtc_base:base_java",
     ]
 
     shared_libraries = [ "../sdk/android:libjingle_peerconnection_so" ]
+    loadable_modules = [ "/home/yupeng/projects/lyra/bazel-bin/android_example/yupeng/lib/arm64-v8a/liblyra_android_example.so" ]
+    loadable_modules += [ "/home/yupeng/projects/lyra/lib/android_arm64/libsparse_inference.so" ]
   }
 
   rtc_android_library("AppRTCMobile_javalib") {
@@ -193,6 +196,79 @@ if (is_android) {
     custom_package = "org.appspot.apprtc"
     resource_dirs = [ "androidapp/res" ]
     assert(resource_dirs != [])  # Mark as used.
+  }
+
+  android_assets("lyra_weight_assets") {
+  #   deps = [
+  #     ":generates_foo",
+  #     ":other_assets",
+  #     ]
+    sources = [
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_ar_to_gates_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_ar_to_gates_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_ar_to_gates_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_ar_to_gates_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv1d_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv1d_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv1d_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv1d_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_cond_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_cond_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_cond_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_cond_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_to_gates_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_to_gates_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_to_gates_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_conv_to_gates_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_gru_layer_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_gru_layer_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_gru_layer_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_gru_layer_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_means_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_means_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_means_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_means_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_mix_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_mix_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_mix_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_mix_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_proj_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_proj_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_proj_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_proj_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_quant_codebook_dimensions.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_quant_code_vectors.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_quant_mean_vectors.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_quant_transmat.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_scales_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_scales_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_scales_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_scales_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_0_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_0_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_0_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_0_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_1_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_1_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_1_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_1_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_2_bias.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_2_fixed16_weights.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_2_mask.raw.gz",
+      "/home/yupeng/projects/lyra/wavegru/lyra_16khz_transpose_2_weights.raw.gz",
+    ]
   }
 
   rtc_instrumentation_test_apk("AppRTCMobile_test_apk") {
@@ -313,7 +389,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       testonly = true
       sources = [
         "objc/AppRTCMobile/ios/ARDAppDelegate.h",
-        "objc/AppRTCMobile/ios/ARDAppDelegate.m",
+        "objc/AppRTCMobile/ios/ARDAppDelegate.mm",
         "objc/AppRTCMobile/ios/ARDFileCaptureController.h",
         "objc/AppRTCMobile/ios/ARDFileCaptureController.m",
         "objc/AppRTCMobile/ios/ARDMainView.h",
@@ -370,6 +446,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         ":AppRTCMobile_lib",
         "../sdk:framework_objc",
         "../sdk:ios_framework_bundle",
+        "../sdk:lyra_ios_framework_bundle",
       ]
 
       if (rtc_apprtcmobile_broadcast_extension) {
@@ -382,6 +459,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       if (target_cpu == "x86") {
         deps += [ "//testing/iossim" ]
       }
+
     }
 
     if (rtc_apprtcmobile_broadcast_extension) {
@@ -469,6 +547,70 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "objc/Icon-120.png",
         "objc/Icon-180.png",
         "objc/Icon.png",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_ar_to_gates_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_ar_to_gates_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_ar_to_gates_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_ar_to_gates_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_0_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_1_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conditioning_stack_2_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv1d_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv1d_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv1d_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv1d_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_cond_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_cond_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_cond_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_cond_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_to_gates_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_to_gates_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_to_gates_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_conv_to_gates_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_gru_layer_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_gru_layer_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_gru_layer_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_gru_layer_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_means_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_means_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_means_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_means_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_mix_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_mix_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_mix_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_mix_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_proj_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_proj_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_proj_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_proj_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_quant_codebook_dimensions.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_quant_code_vectors.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_quant_mean_vectors.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_quant_transmat.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_scales_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_scales_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_scales_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_scales_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_0_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_0_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_0_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_0_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_1_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_1_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_1_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_1_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_2_bias.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_2_fixed16_weights.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_2_mask.raw.gz",
+      "/Users/peng.yu/myworks/open-source-projects/lyra/wavegru/lyra_16khz_transpose_2_weights.raw.gz",
       ]
       outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
     }

@@ -14,6 +14,7 @@
 #import "sdk/objc/api/peerconnection/RTCSSLAdapter.h"
 #import "sdk/objc/api/peerconnection/RTCTracing.h"
 #import "sdk/objc/base/RTCLogging.h"
+#import "api/audio_codecs/lyra/audio_encoder_lyra.h"
 
 #import "ARDMainViewController.h"
 
@@ -38,13 +39,15 @@
   root.navigationBar.translucent = NO;
   _window.rootViewController = root;
 
-#if defined(NDEBUG)
+//#if defined(NDEBUG)
   // In debug builds the default level is LS_INFO and in non-debug builds it is
   // disabled. Continue to log to console in non-debug builds, but only
   // warnings and errors.
-  RTCSetMinDebugLogLevel(RTCLoggingSeverityWarning);
-#endif
+  RTCSetMinDebugLogLevel(RTCLoggingSeverityVerbose);
+//#endif
 
+  RTCLog(@"yupeng path: %@", [[NSBundle mainBundle] bundlePath]);
+  webrtc::g_lyra_weight_path = std::string([[[NSBundle mainBundle] bundlePath] UTF8String]);
   return YES;
 }
 

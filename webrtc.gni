@@ -245,6 +245,8 @@ declare_args() {
   rtc_build_libvpx = !build_with_mozilla
   rtc_libvpx_build_vp9 = !build_with_mozilla
   rtc_build_opus = !build_with_mozilla
+  rtc_build_lyra = false
+  rtc_prebuild_lyra = true
   rtc_build_ssl = !build_with_mozilla
 
   # Enable libevent task queues on platforms that support it.
@@ -310,6 +312,7 @@ declare_args() {
 # up into declare_args should we need to actually use them for the GN build).
 rtc_libvpx_dir = "//third_party/libvpx"
 rtc_opus_dir = "//third_party/opus"
+rtc_lyra_dir = "//third_party/lyra"
 
 # Desktop capturer is supported only on Windows, OSX and Linux.
 rtc_desktop_capture_supported =
