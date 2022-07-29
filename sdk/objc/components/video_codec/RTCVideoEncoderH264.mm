@@ -396,9 +396,9 @@ NSUInteger GetMaxSampleRate(const webrtc::H264ProfileLevelId &profile_level_id) 
   BOOL isKeyframeRequired = NO;
 
   // Get a pixel buffer from the pool and copy frame data over.
-  if ([self resetCompressionSessionIfNeededWithFrame:frame]) {
-    isKeyframeRequired = YES;
-  }
+//  if ([self resetCompressionSessionIfNeededWithFrame:frame]) {
+//    isKeyframeRequired = YES;
+//  }
 
   CVPixelBufferRef pixelBuffer = nullptr;
   if ([frame.buffer isKindOfClass:[RTC_OBJC_TYPE(RTCCVPixelBuffer) class]]) {

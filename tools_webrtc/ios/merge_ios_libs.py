@@ -1,4 +1,4 @@
-#!/usr/bin/env vpython3
+#!/usr/bin/env python3
 
 #  Copyright 2016 The WebRTC project authors. All Rights Reserved.
 #

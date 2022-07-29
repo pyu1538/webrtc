@@ -77,6 +77,7 @@
 }
 
 - (void)setCorrectVideoOrientation {
+  // yupeng
   // Get current device orientation.
   UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
   AVCaptureVideoPreviewLayer *previewLayer = [self previewLayer];

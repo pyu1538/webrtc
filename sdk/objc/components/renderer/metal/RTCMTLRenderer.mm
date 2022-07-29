@@ -47,7 +47,7 @@ static inline void getCubeVertexData(int cropX,
   float cropRight = (cropX + cropWidth) / (float)frameWidth;
   float cropTop = cropY / (float)frameHeight;
   float cropBottom = (cropY + cropHeight) / (float)frameHeight;
-
+// yupeng
   // These arrays map the view coordinates to texture coordinates, taking cropping and rotation
   // into account. The first two columns are view coordinates, the last two are texture coordinates.
   switch (rotation) {

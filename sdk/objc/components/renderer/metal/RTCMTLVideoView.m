@@ -197,6 +197,7 @@
 #pragma mark -
 
 - (void)setRotationOverride:(NSValue *)rotationOverride {
+  // yupeng
   _rotationOverride = rotationOverride;
 
   self.metalView.drawableSize = [self drawableSize];

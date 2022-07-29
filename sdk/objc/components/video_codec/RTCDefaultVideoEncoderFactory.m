@@ -23,15 +23,17 @@
 @synthesize preferredCodec;
 
 + (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)supportedCodecs {
+    /*
   NSDictionary<NSString *, NSString *> *constrainedHighParams = @{
     @"profile-level-id" : kRTCMaxSupportedH264ProfileLevelConstrainedHigh,
     @"level-asymmetry-allowed" : @"1",
     @"packetization-mode" : @"1",
   };
+    
   RTC_OBJC_TYPE(RTCVideoCodecInfo) *constrainedHighInfo =
       [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecH264Name
                                                   parameters:constrainedHighParams];
-
+     */
   NSDictionary<NSString *, NSString *> *constrainedBaselineParams = @{
     @"profile-level-id" : kRTCMaxSupportedH264ProfileLevelConstrainedBaseline,
     @"level-asymmetry-allowed" : @"1",
@@ -41,9 +43,12 @@
       [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecH264Name
                                                   parameters:constrainedBaselineParams];
 
-  RTC_OBJC_TYPE(RTCVideoCodecInfo) *vp8Info =
-      [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecVp8Name];
-
+//  RTC_OBJC_TYPE(RTCVideoCodecInfo) *vp8Info =
+//      [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecVp8Name];
+    NSMutableArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *result = [@[
+        constrainedBaselineInfo,
+    ] mutableCopy];
+/*
   NSMutableArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *result = [@[
     constrainedHighInfo,
     constrainedBaselineInfo,
@@ -59,7 +64,7 @@
     [result
         addObject:[[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecAv1Name]];
   }
-
+*/
   return result;
 }
 

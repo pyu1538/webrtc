@@ -23,6 +23,7 @@
 #import "sdk/objc/api/peerconnection/RTCTracing.h"
 #import "sdk/objc/api/peerconnection/RTCVideoSource.h"
 #import "sdk/objc/api/peerconnection/RTCVideoTrack.h"
+#import "sdk/objc/api/peerconnection/RTCPeerConnectionFactoryOptions.h"
 #import "sdk/objc/base/RTCLogging.h"
 #import "sdk/objc/components/capturer/RTCCameraVideoCapturer.h"
 #import "sdk/objc/components/capturer/RTCFileVideoCapturer.h"
@@ -41,7 +42,7 @@
 #import "RTCIceCandidate+JSON.h"
 #import "RTCSessionDescription+JSON.h"
 
-static NSString * const kARDIceServerRequestUrl = @"https://appr.tc/params";
+static NSString * const kARDIceServerRequestUrl = @"http://10.32.227.137:8080/params";
 
 static NSString * const kARDAppClientErrorDomain = @"ARDAppClient";
 static NSInteger const kARDAppClientErrorUnknown = -1;
@@ -228,10 +229,14 @@ static int const kKbpsMultiplier = 1000;
       [[RTC_OBJC_TYPE(RTCDefaultVideoDecoderFactory) alloc] init];
   RTC_OBJC_TYPE(RTCDefaultVideoEncoderFactory) *encoderFactory =
       [[RTC_OBJC_TYPE(RTCDefaultVideoEncoderFactory) alloc] init];
-  encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
+  //encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
   _factory =
       [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] initWithEncoderFactory:encoderFactory
                                                                decoderFactory:decoderFactory];
+    RTC_OBJC_TYPE(RTCPeerConnectionFactoryOptions) *op =
+        [[RTC_OBJC_TYPE(RTCPeerConnectionFactoryOptions) alloc] init];
+    op.disableEncryption = YES;
+  [_factory setOptions:op];
 
 #if defined(WEBRTC_IOS)
   if (kARDAppClientEnableTracing) {
@@ -563,7 +568,9 @@ static int const kKbpsMultiplier = 1000;
   RTC_OBJC_TYPE(RTCConfiguration) *config = [[RTC_OBJC_TYPE(RTCConfiguration) alloc] init];
   RTC_OBJC_TYPE(RTCCertificate) *pcert = [RTC_OBJC_TYPE(RTCCertificate)
       generateCertificateWithParams:@{@"expires" : @100000, @"name" : @"RSASSA-PKCS1-v1_5"}];
-  config.iceServers = _iceServers;
+  //config.iceServers = _iceServers;
+  config.disableIPV6 = YES;
+  //config.disableLinkLocalNetworks = YES;
   config.sdpSemantics = RTCSdpSemanticsUnifiedPlan;
   config.certificate = pcert;
 
@@ -754,6 +761,7 @@ static int const kKbpsMultiplier = 1000;
   }
 
   RTC_OBJC_TYPE(RTCVideoSource) *source = [_factory videoSource];
+    [source adaptOutputFormatToWidth:960 height:540 fps:20];
 
 #if !TARGET_IPHONE_SIMULATOR
   if (self.isBroadcast) {
@@ -819,7 +827,9 @@ static int const kKbpsMultiplier = 1000;
 - (RTC_OBJC_TYPE(RTCMediaConstraints) *)defaultOfferConstraints {
   NSDictionary *mandatoryConstraints = @{
     @"OfferToReceiveAudio" : @"true",
-    @"OfferToReceiveVideo" : @"true"
+    @"OfferToReceiveVideo" : @"true",
+    @"maxHeight" : @"540",
+    @"maxWidth" : @"960"
   };
   RTC_OBJC_TYPE(RTCMediaConstraints) *constraints =
       [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:mandatoryConstraints

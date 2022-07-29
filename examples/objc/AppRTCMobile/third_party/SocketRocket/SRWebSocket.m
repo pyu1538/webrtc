@@ -26,7 +26,7 @@
 #endif
 
 #if TARGET_OS_IPHONE
-#import <Endian.h>
+#import <machine/Endian.h>
 #else
 #import <CoreServices/CoreServices.h>
 #endif

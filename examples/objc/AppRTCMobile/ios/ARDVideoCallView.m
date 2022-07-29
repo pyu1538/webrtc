@@ -41,7 +41,9 @@ static CGFloat const kStatusBarHeight = 20;
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
 
-    _remoteVideoView = [[RTC_OBJC_TYPE(RTCMTLVideoView) alloc] initWithFrame:CGRectZero];
+    RTC_OBJC_TYPE(RTCMTLVideoView) *tmp = [[RTC_OBJC_TYPE(RTCMTLVideoView) alloc] initWithFrame:CGRectZero];
+                                           //tmp.rotationOverride = [NSNumber numberWithInt:270];
+    _remoteVideoView = tmp;
 
     [self addSubview:_remoteVideoView];
 
@@ -100,6 +102,7 @@ static CGFloat const kStatusBarHeight = 20;
     tapRecognizer.numberOfTapsRequired = 3;
     [self addGestureRecognizer:tapRecognizer];
   }
+    
   return self;
 }
 

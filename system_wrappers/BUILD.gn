@@ -120,7 +120,7 @@ rtc_library("denormal_disabler") {
     "../rtc_base/system:arch",
   ]
   if (is_clang) {
-    cflags_cc = [ "-Wno-unused-private-field" ]
+    #cflags_cc = [ "-Wno-unused-private-field" ]
   }
 }
 
